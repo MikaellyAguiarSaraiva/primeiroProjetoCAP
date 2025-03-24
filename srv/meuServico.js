@@ -1,3 +1,4 @@
+const { insert } = require('@sap/cds')
 const cds = require('@sap/cds')
 const { Estudantes } = cds.entities('sap.cap.escola')
 
@@ -37,6 +38,51 @@ module.exports = (srv) => {
             }
         }).catch((err) =>{
             console.log("Erro ao Atualizar")
+            return err
+        })
+
+        console.log(result)
+        return result
+    })
+    srv.on("CREATE", "InsertEstudantes", async (req, res) => {
+        let result = await cds
+        .transaction(req)
+        .run(
+            INSERT.into(Estudantes)
+            .entries(req.data)
+        ).then((resolve, reject) => {
+            if (typeof resolve !== 'undefined' && resolve >= 1) {
+                return req.data
+            } else {
+                console.log("Nenhum dado foi inserido")
+                return null
+            }
+        }).catch((err) =>{
+            console.log("Erro ao Inserir Dados")
+            return err
+        })
+
+        console.log(result)
+        return result
+    })
+
+    srv.on("CREATE", "DeleteEstudantes", async (req, res) => {
+        let result = await cds
+        .transaction(req)
+        .run(
+            DELETE.from(Estudantes)
+            .where({
+                email: req.data.email
+            })
+        ).then((resolve, reject) => {
+            if (typeof resolve !== 'undefined' && resolve >= 1) {
+                return req.data
+            } else {
+                console.log("Nenhuma linha deletada")
+                return null
+            }
+        }).catch((err) =>{
+            console.log("Erro ao deletar Dados")
             return err
         })
 
