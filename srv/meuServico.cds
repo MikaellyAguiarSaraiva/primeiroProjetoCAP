@@ -17,5 +17,3 @@ extend service exportSRV with {
         data_cadastro
     }
 }
-
-//teste
