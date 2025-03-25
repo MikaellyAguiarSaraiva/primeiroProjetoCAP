@@ -1,6 +1,6 @@
-# Getting Started
+# SAP CAP 
 
-Welcome to your new project.
+CRUD de Estudante para praticar o conhecimento em SAP CAP
 
 It contains these folders and files, following our recommended project layout:
 
